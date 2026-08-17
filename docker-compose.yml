@@ -5,6 +5,7 @@ services:
     stdin_open: true
     tty: true
     restart: unless-stopped
+    command: python src/views/local_server.py
     volumes:
       - ./assets/userdata:/app/assets/userdata
       - ./userconfig.txt:/app/userconfig.txt
@@ -19,6 +20,7 @@ services:
     stdin_open: true
     tty: true
     restart: unless-stopped
+    command: python src/views/casino_promocode_claimer.py
     volumes:
       - ./assets/userdata:/app/assets/userdata
       - ./userconfig.txt:/app/userconfig.txt
@@ -36,6 +38,7 @@ services:
     stdin_open: true
     tty: true
     restart: unless-stopped
+    command: python src/views/casino_rain_claimer.py
     volumes:
       - ./assets/userdata:/app/assets/userdata
       - ./userconfig.txt:/app/userconfig.txt
