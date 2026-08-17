@@ -1,0 +1,24 @@
+# Local Server
+socket_host=0.0.0.0
+socket_port=65432
+headless=true
+thread=2
+page_count=1
+debug=true
+cleanup_interval_minutes=10
+
+# Discord Selfbot
+discord_token=TU_DISCORD_TOKEN
+
+# 2Captcha
+2captcha_apikey=TU_API_KEY_2CAPTCHA
+
+# Finance App
+finance_app_apikey=TU_API_KEY_FINANCE
+finance_app_url=https://dashboard-casinos.lovable.app
+
+# Webhooks
+mm2wild_promocode_webhook=TU_WEBHOOK
+mm2wild_rain_webhook=TU_WEBHOOK
+harvestergg_promocode_webhook=TU_WEBHOOK
+harvestergg_rain_webhook=TU_WEBHOOK

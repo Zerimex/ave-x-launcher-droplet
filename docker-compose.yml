@@ -1,0 +1,49 @@
+services:
+  local-server:
+    build: .
+    container_name: ave-local-server
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - ./assets/userdata:/app/assets/userdata
+      - ./userconfig.txt:/app/userconfig.txt
+    environment:
+      - DISPLAY=:99
+      - PYTHONUNBUFFERED=1
+      - AUTO_SELECT=3
+
+  promocode:
+    build: .
+    container_name: ave-promocode
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - ./assets/userdata:/app/assets/userdata
+      - ./userconfig.txt:/app/userconfig.txt
+    environment:
+      - DISPLAY=:99
+      - PYTHONUNBUFFERED=1
+      - AUTO_SELECT=1
+      - DOCKER_SOCKET_HOST=local-server
+      - PROMOCODE_BYPASS=none
+      - PROMOCODE_SITE=MM2WILD
+
+  rain:
+    build: .
+    container_name: ave-rain
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    volumes:
+      - ./assets/userdata:/app/assets/userdata
+      - ./userconfig.txt:/app/userconfig.txt
+    environment:
+      - DISPLAY=:99
+      - PYTHONUNBUFFERED=1
+      - AUTO_SELECT=2
+      - DOCKER_SOCKET_HOST=local-server
+      - RAIN_BYPASS=none
+      - RAIN_SOLVER=2captcha
+      - RAIN_SITE=HarvesterGG

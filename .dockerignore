@@ -1,0 +1,14 @@
+__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+.vscode
+.idea
+*.md
+start.bat
+.dockerignore
+Dockerfile
+docker-compose.yml
+assets/userdata/MM2WILD
+assets/userdata/HarvesterGG

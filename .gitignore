@@ -1,0 +1,9 @@
+userconfig.txt
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.bat
+.DS_Store
+.vscode/
+.idea/
