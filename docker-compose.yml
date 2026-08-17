@@ -12,6 +12,7 @@ services:
     environment:
       - DISPLAY=:99
       - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
       - AUTO_SELECT=3
 
   promocode:
@@ -27,6 +28,7 @@ services:
     environment:
       - DISPLAY=:99
       - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
       - AUTO_SELECT=1
       - DOCKER_SOCKET_HOST=local-server
       - PROMOCODE_BYPASS=none
@@ -45,6 +47,7 @@ services:
     environment:
       - DISPLAY=:99
       - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
       - AUTO_SELECT=2
       - DOCKER_SOCKET_HOST=local-server
       - RAIN_BYPASS=none
