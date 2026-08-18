@@ -1,6 +1,6 @@
 services:
   local-server:
-    build: .
+    image: ave-x-launcher:latest
     container_name: ave-local-server
     stdin_open: true
     tty: true
@@ -18,7 +18,7 @@ services:
       - ave-net
 
   promocode:
-    build: .
+    image: ave-x-launcher:latest
     container_name: ave-promocode
     stdin_open: true
     tty: true
@@ -37,7 +37,7 @@ services:
       - ave-net
 
   rain:
-    build: .
+    image: ave-x-launcher:latest
     container_name: ave-rain
     stdin_open: true
     tty: true
