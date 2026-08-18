@@ -14,6 +14,8 @@ services:
       - PYTHONUNBUFFERED=1
       - PYTHONPATH=/app
       - MODULE=local-server
+    networks:
+      - ave-net
 
   promocode:
     build: .
@@ -31,6 +33,8 @@ services:
       - PYTHONPATH=/app
       - MODULE=promocode
       - DOCKER_SOCKET_HOST=local-server
+    networks:
+      - ave-net
 
   rain:
     build: .
@@ -48,3 +52,9 @@ services:
       - PYTHONPATH=/app
       - MODULE=rain
       - DOCKER_SOCKET_HOST=local-server
+    networks:
+      - ave-net
+
+networks:
+  ave-net:
+    driver: bridge
