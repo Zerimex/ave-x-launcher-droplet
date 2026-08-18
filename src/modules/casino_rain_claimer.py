@@ -13,7 +13,7 @@ import json
 
 from src.config import USERDATA_DIR, USERDATA, WEBSITE_CONFIG, BLACKLIST_TEMP
 from src.utils.helpers import log_status, send_claim, get_user_config, refresh_userdata, verify_file_exists, proxies_verify_status, build_proxy_params, is_cloudflare_block
-from src.utils.website_checker_loop import start_website_checker
+from src.utils.website_checker_loop import start_website_checker, trigger_bypass
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -272,6 +272,14 @@ class RainClaimerManager:
                         log_status(True, "ERROR", "El JSON recibido no contiene los parámetros esperados.", "", "error")
                         await asyncio.sleep(30)
                 else:
+                    if is_cloudflare_block(response) and BYPASS_CONFIG != "none":
+                        log_status(True, "CLEARANCE ERROR", f"{nom_ref}: cf_clearance vencido/inválido (Status {response.status_code}). Solicitando bypass...", "", "error")
+                        proxy_url = proxies_dict.get(nom_ref, "")
+                        bypass_ok = await trigger_bypass(nom_ref, CURRENT_WEBSITE, proxy_url)
+                        if bypass_ok:
+                            intentos_fallidos = 0
+                            await asyncio.sleep(10)
+                            continue
                     intentos_fallidos += 1
                     log_status(True, "ERROR", f"Status {response.status_code} al revisar lloviznas con {nom_ref}. Intentos: {intentos_fallidos}/3.", "", "error")
                     await asyncio.sleep(30)
@@ -399,6 +407,16 @@ class RainClaimerManager:
                         return False
 
                     if is_cloudflare_block(r):
+                        if BYPASS_CONFIG != "none":
+                            log_status(True, "CLEARANCE ERROR", f"{nom}: cf_clearance vencido/inválido (Status {r.status_code}). Solicitando bypass...", "", "error")
+                            proxy_url = proxies_dict.get(nom, "")
+                            bypass_ok = await trigger_bypass(nom, CURRENT_WEBSITE, proxy_url)
+                            if bypass_ok:
+                                refresh_userdata()
+                                cookies_dict["cf_clearance"] = USERDATA.get("cookies.txt", {}).get(nom, "")
+                                log_status(True, "CLEARANCE", f"{nom}: Cookie actualizada. Reintentando...", "", "normal")
+                                await asyncio.sleep(3)
+                                continue
                         log_status(True, "CLEARANCE ERROR", f"{nom}: cf_clearance vencido/inválido (Status {r.status_code}).", "", "error")
                         entradas.append({"nickname": nom, "status": "Fallido"})
                         return False

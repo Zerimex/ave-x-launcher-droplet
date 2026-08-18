@@ -43,8 +43,6 @@ COPY . .
 
 RUN mkdir -p assets/userdata/MM2WILD assets/userdata/HarvesterGG
 
-RUN python -m camoufox sync && python -m camoufox fetch
+RUN python -m camoufox sync && python -m camoufox fetch && python -m playwright install-deps && python -m playwright install
 
-CMD Xvfb :99 -screen 0 1280x720x24 &>/dev/null & \
-    sleep 1 && \
-    python launcher.py
+CMD xvfb-run -a python launcher.py

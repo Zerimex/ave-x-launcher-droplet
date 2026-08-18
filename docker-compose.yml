@@ -5,7 +5,7 @@ services:
     stdin_open: true
     tty: true
     restart: unless-stopped
-    command: python src/views/local_server.py
+    command: python launcher.py
     volumes:
       - ./assets/userdata:/app/assets/userdata
       - ./userconfig.txt:/app/userconfig.txt
@@ -13,7 +13,7 @@ services:
       - DISPLAY=:99
       - PYTHONUNBUFFERED=1
       - PYTHONPATH=/app
-      - AUTO_SELECT=3
+      - MODULE=local-server
 
   promocode:
     build: .
@@ -21,7 +21,7 @@ services:
     stdin_open: true
     tty: true
     restart: unless-stopped
-    command: python src/views/casino_promocode_claimer.py
+    command: python launcher.py
     volumes:
       - ./assets/userdata:/app/assets/userdata
       - ./userconfig.txt:/app/userconfig.txt
@@ -29,10 +29,8 @@ services:
       - DISPLAY=:99
       - PYTHONUNBUFFERED=1
       - PYTHONPATH=/app
-      - AUTO_SELECT=1
+      - MODULE=promocode
       - DOCKER_SOCKET_HOST=local-server
-      - PROMOCODE_BYPASS=none
-      - PROMOCODE_SITE=MM2WILD
 
   rain:
     build: .
@@ -40,7 +38,7 @@ services:
     stdin_open: true
     tty: true
     restart: unless-stopped
-    command: python src/views/casino_rain_claimer.py
+    command: python launcher.py
     volumes:
       - ./assets/userdata:/app/assets/userdata
       - ./userconfig.txt:/app/userconfig.txt
@@ -48,8 +46,5 @@ services:
       - DISPLAY=:99
       - PYTHONUNBUFFERED=1
       - PYTHONPATH=/app
-      - AUTO_SELECT=2
+      - MODULE=rain
       - DOCKER_SOCKET_HOST=local-server
-      - RAIN_BYPASS=none
-      - RAIN_SOLVER=2captcha
-      - RAIN_SITE=HarvesterGG
